@@ -4,3 +4,4 @@
 /model/test_input
 /model/test_output
 /model/train
+.mypy_cache
