@@ -11,11 +11,14 @@ from skimage.io import imsave
 
 
 class Model:
-    def __init__(self, test_dir: str, train_dir: str, model_name: str) -> None:
+    def __init__(
+        self, model_name: str, test_input: str, test_output: str, train_input: str
+    ) -> None:
         self.model = Sequential()
         self.model_name = model_name
-        self.test_dir = test_dir
-        self.train_dir = train_dir
+        self.test_input = test_input
+        self.test_output = test_output
+        self.train_input = train_input
 
     def load_image(self, img_name: str) -> ndarray:
         image = img_to_array(load_img(img_name))
@@ -56,10 +59,10 @@ class Model:
         canvas = np.zeros((400, 400, 3))
         canvas[:, :, 0] = image[0][:, :, 0]
         canvas[:, :, 1:] = output_image[0]
-        imsave("model/test_output/people.png", lab2rgb(canvas))
+        imsave(f"{self.test_output}/people.png", lab2rgb(canvas))
 
     def run(self) -> None:
-        image_name = "model/test_input/people.jpg"
+        image_name = f"{self.test_input}/people.jpg"
         image = self.load_image(image_name)
         layer1, layer2 = self.restructure_image_array(image)
 
@@ -68,10 +71,6 @@ class Model:
 
         self.model.fit(x=layer1, y=layer2, batch_size=1, epochs=1000)
         self.model.evaluate(layer1, layer2, batch_size=1)
+        self.model.save(f"model_src/models/{self.model_name}")
 
         self.test_image(layer1)
-
-
-if __name__ == "__main__":
-    test_model = Model("", "", "")
-    test_model.run()

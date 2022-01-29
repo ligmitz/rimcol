@@ -1,7 +1,8 @@
 /target
 /renv-1
 /renv-2
-/model/test_input
-/model/test_output
-/model/train
+/model_src/test_input
+/model_src/test_output
+/model_src/train
 .mypy_cache
+**/__pycache__
