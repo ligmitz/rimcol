@@ -4,5 +4,6 @@
 /model_src/test_input
 /model_src/test_output
 /model_src/train
+/model_src/train_raw
 .mypy_cache
 **/__pycache__
