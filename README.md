@@ -26,6 +26,9 @@
 
 rimcol currently can be used in 3 ways, install via [cargo](https://doc.rust-lang.org/cargo/), build from source and use as a rust package.
 
+Before installing, download the model from <a href="https://drive.google.com/drive/folders/1-Q--MxdkfbO26UHIKBlrkRSY9TT2VFG4?usp=sharing" target="_blank">here</a>,
+extract it and place the folder at `/home/<user>/`.
+
 **Note**: rimcol depends on tensorflow for running the CNN model, so you should have tensorflow prerequisites installed. Refer [tensorflow-rust](https://github.com/tensorflow/rust).
 
 ## Manual installation from GitHub
