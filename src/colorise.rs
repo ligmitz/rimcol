@@ -45,7 +45,7 @@ pub fn bw_to_rgb(path_to_input: String, path_for_output: String) -> Result<(), B
         ))));
     }
 
-    let model_dir: &str = "model_src/models/beta";
+    let model_dir: String = format!("/home/{}/beta", whoami::username());
 
     let input_image: DynamicImage = ImageReader::open(&path_to_input)?.decode()?;
     let mut input_rgbs: Vec<[u8; 3]> = Vec::new();

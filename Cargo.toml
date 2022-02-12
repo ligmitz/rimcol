@@ -10,6 +10,7 @@ repository = "https://github.com/ligmitz/rimcol"
 documentation = "https://github.com/ligmitz/rimcol"
 readme = "README.md"
 categories = ["command-line-utilities"]
+exclude = ["model_src/"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -27,6 +28,7 @@ tensorflow = "0.17.0"
 image = "0.24.0"
 lab = "0.11.0"
 clap = { version = "3.0", features = ["derive"] }
+whoami = "1.2.1"
 
 [profile.release]
 lto = true
