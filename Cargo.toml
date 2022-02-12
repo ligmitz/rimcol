@@ -3,6 +3,13 @@ name = "rimcol"
 version = "0.1.0"
 edition = "2021"
 authors = ["Gaurav Pandey <gauravguitarrocks@gmail.com>"]
+license = "MIT"
+description = "A command line tool for converting greyscale to RGB using CNN modelling."
+homepage = "https://github.com/ligmitz/rimcol"
+repository = "https://github.com/ligmitz/rimcol"
+documentation = "https://github.com/ligmitz/rimcol"
+readme = "README.md"
+categories = ["command-line-utilities"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -20,3 +27,6 @@ tensorflow = "0.17.0"
 image = "0.24.0"
 lab = "0.11.0"
 clap = { version = "3.0", features = ["derive"] }
+
+[profile.release]
+lto = true
