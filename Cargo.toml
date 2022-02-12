@@ -1,8 +1,22 @@
 [package]
-name = "rust-image-coloriser"
+name = "rimcol"
 version = "0.1.0"
 edition = "2021"
+authors = ["Gaurav Pandey <gauravguitarrocks@gmail.com>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+name = "rimcol"
+path = "src/colorise.rs"
+
+[[bin]]
+name = "rimcol"
+path = "src/main.rs"
+doc = false
+
 [dependencies]
+tensorflow = "0.17.0"
+image = "0.24.0"
+lab = "0.11.0"
+clap = { version = "3.0", features = ["derive"] }
