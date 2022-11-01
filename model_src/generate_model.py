@@ -33,9 +33,9 @@ def generate(
         mkdir(test_output)
 
     try:
-        from model_definition import Model
+        from model_definition import ColorizationModel
 
-        model = Model(name, test_input, test_output, train_input, batch_size, epochs)
+        model = ColorizationModel(name, test_input, test_output, train_input, batch_size, epochs)
         model.run()
     except Exception as e:
         print(e)
