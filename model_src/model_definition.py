@@ -4,7 +4,7 @@ from typing import Generator, Tuple
 
 import numpy as np
 import tensorflow as tf
-from keras.applications.inception_resnet_v2 import InceptionResNetV2
+from keras.applications.inception_resnet_v2 import InceptionResNetV2, preprocess_input
 from keras.callbacks import TensorBoard
 from keras.layers import Conv2D, Input, InputLayer, UpSampling2D, Reshape, concatenate
 from keras.layers.core import RepeatVector
@@ -12,9 +12,11 @@ from keras.models import Model
 from keras.preprocessing.image import (ImageDataGenerator, img_to_array,
                                        load_img)
 from numpy import ndarray
-from skimage.color import lab2rgb, rgb2lab
+from skimage.color import lab2rgb, rgb2lab, gray2rgb, rgb2gray
+from skimage.transform import resize
 from skimage.io import imsave
 
+tf.compat.v1.disable_eager_execution() # To avoid eager mode error.
 
 class ColorizationModel:
     def __init__(
@@ -54,7 +56,7 @@ class ColorizationModel:
 
     def _load_resnet_weights(self) -> InceptionResNetV2:
         inception = InceptionResNetV2(weights="imagenet", include_top=True)
-        inception.graph = tf.get_default_graph()
+        inception.graph = tf.compat.v1.get_default_graph()
         return inception
 
     def _images_generator(
@@ -181,4 +183,4 @@ class ColorizationModel:
         self._evaluate_model(model, test_images)
         model.save(f"model_src/models/{self.model_name}")
 
-        # self.test_images()
+        self.test_images()
