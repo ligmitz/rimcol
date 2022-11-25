@@ -20,6 +20,7 @@ def test(name: str, test_input: str, test_output: str) -> None:
         mkdir(test_output)
 
     try:
+        # import matplotlib.pyplot as plt
         import numpy as np
         import tensorflow as tf
         from keras import models
@@ -27,7 +28,7 @@ def test(name: str, test_input: str, test_output: str) -> None:
         from keras.preprocessing.image import img_to_array, load_img
         from skimage.color import lab2rgb, rgb2lab, gray2rgb, rgb2gray
         from skimage.transform import resize
-        from skimage.io import imsave
+        from imageio import imwrite
 
         tf.compat.v1.disable_eager_execution()
 
@@ -57,15 +58,21 @@ def test(name: str, test_input: str, test_output: str) -> None:
             embedding = inception.predict(sample_grayscaled_rgb_resized)
 
         intensity_layer = lab_images[:, :, :, 0]
+        intensity_layer = intensity_layer.reshape(intensity_layer.shape + (1,))
 
-        output_layers = model.predict([intensity_layer.reshape(intensity_layer.shape + (1,)), embedding])
+        output_layers = model.predict([intensity_layer, embedding])
         output_layers = output_layers * 128
 
         for output_index in range(len(output_layers)):
             canvas = np.zeros((256, 256, 3))
-            canvas[:, :, 0] = intensity_layer[output_index][:, :]
+            canvas[:, :, 0] = intensity_layer[output_index][:, :, 0]
             canvas[:, :, 1:] = output_layers[output_index]
-            imsave(f"{test_output}image-{str(output_index)}.png", lab2rgb(canvas))
+            canvas_rgb = lab2rgb(canvas) * 255
+            # print(canvas_rgb.astype("uint8"))
+            imwrite(f"{test_output}image-{str(output_index)}.png", canvas_rgb.astype("uint8"), "png")
+
+            # plt.imshow(canvas_rgb.astype("uint8"))
+            # plt.show()
 
     except Exception as e:
         print(e)
